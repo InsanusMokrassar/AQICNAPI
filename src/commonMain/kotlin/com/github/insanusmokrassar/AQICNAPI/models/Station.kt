@@ -3,9 +3,8 @@ package com.github.insanusmokrassar.AQICNAPI.models
 import kotlinx.serialization.*
 
 @Serializable
-data class City(
-    @SerialName("name")
-    val stationName: String,
+data class Station(
+    val name: String,
     val url: String,
     private val geo: List<String>
 ) {

@@ -1,7 +1,6 @@
 package com.github.insanusmokrassar.AQICNAPI.responses
 
 import com.github.insanusmokrassar.AQICNAPI.models.MapLocation
-import com.github.insanusmokrassar.AQICNAPI.models.StationData
 import kotlinx.serialization.Optional
 import kotlinx.serialization.Serializable
 

@@ -15,6 +15,7 @@ buildscript {
     }
 }
 
+apply plugin: 'application'
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
 

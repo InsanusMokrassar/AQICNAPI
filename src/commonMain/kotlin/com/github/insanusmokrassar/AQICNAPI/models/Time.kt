@@ -1,12 +1,21 @@
 package com.github.insanusmokrassar.AQICNAPI.models
 
-import kotlinx.serialization.Optional
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 @Serializable
 data class Time(
-    val s: String,
     val tz: String,
     @Optional
+    val s: String? = null,
+    @Optional
+    val stime: String? = null,
+    @Optional
+    val vtime: Long? = null,
+    @Optional
     val v: Long? = null
-)
+) {
+    @Transient
+    val timeString: String? = s ?: stime
+    @Transient
+    val timeSeconds: Long? = v ?: vtime
+}
