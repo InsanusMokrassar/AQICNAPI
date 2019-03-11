@@ -29,7 +29,7 @@ data class AQIData(
     val mainAQIField: String = Pm25
 ) {
     @Transient
-    val cityIdentifier: CityIdentifier = CityIdentifierId(uid ?: idx ?: throw IllegalStateException("One of id must be used"))
+    val stationIdentifier: StationIdentifier = StationIdentifierId(uid ?: idx ?: throw IllegalStateException("One of id must be used"))
 
     @Transient
     val aqi: Int? = rawAQI.toIntOrNull()

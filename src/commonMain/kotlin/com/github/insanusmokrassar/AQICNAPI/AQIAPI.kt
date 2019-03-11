@@ -13,9 +13,9 @@ class AQIAPI(
 ) {
     private val baseURL: String = "https://api.waqi.info/"
 
-    suspend fun cityAQI(cityIdentifier: CityIdentifier): AQIData? {
+    suspend fun stationAQI(stationIdentifier: StationIdentifier): AQIData? {
         return try {
-            client.get<String>(Url("$baseURL${cityFeed(cityIdentifier, token)}")).let {
+            client.get<String>(Url("$baseURL${stationFeed(stationIdentifier, token)}")).let {
                 Json.nonstrict.parse(CommonResponse.serializer(), it).data
             }
         } catch (e: Exception) {
