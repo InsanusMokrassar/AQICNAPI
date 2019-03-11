@@ -8,5 +8,5 @@ data class Time(
     val s: String,
     val tz: String,
     @Optional
-    val v: Long
+    val v: Long? = null
 )
