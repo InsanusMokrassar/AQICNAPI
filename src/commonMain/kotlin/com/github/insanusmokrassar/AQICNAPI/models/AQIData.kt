@@ -1,7 +1,6 @@
 package com.github.insanusmokrassar.AQICNAPI.models
 
-import com.github.insanusmokrassar.AQICNAPI.Pm25
-import com.github.insanusmokrassar.AQICNAPI.aqiLevel
+import com.github.insanusmokrassar.AQICNAPI.*
 import com.github.insanusmokrassar.AQICNAPI.models.attribution.Attribution
 import kotlinx.serialization.*
 
@@ -26,19 +25,28 @@ data class AQIData(
     val iaqi: IAQI = IAQI(),
     @SerialName("dominentpol")
     @Optional
-    val mainAQIField: String = Pm25
+    private val dominentpol: String = Pm25
 ) {
     @Transient
     val stationIdentifier: StationIdentifier = StationIdentifierId(uid ?: idx ?: throw IllegalStateException("One of id must be used"))
 
     @Transient
-    val aqi: Int? = rawAQI.toIntOrNull()
+    val mainAQIField: String = if (dominentpol !in knownTypesOfIAQI || dominentpol !in iaqi.toMapWithoutNulls.keys) {
+        iaqi.toMapWithoutNulls.maxBy {
+            it.value
+        } ?.key ?: dominentpol
+    } else {
+        dominentpol
+    }
 
     @Transient
-    val mainAQIProperty: Pair<String, Float?> = mainAQIField to iaqi.toMapWithoutNulls[mainAQIField]
+    val mainAQIProperty: Pair<String, Float> = mainAQIField to (iaqi.toMapWithoutNulls[mainAQIField] ?: 0F)
 
     @Transient
-    val warningLevel = aqi ?.let { aqiLevel(it) }
+    val aqi: Int = rawAQI.toIntOrNull() ?: mainAQIProperty.second.toInt()
+
+    @Transient
+    val warningLevel = aqiLevel(aqi)
 
     @Transient
     val station: Station = rawStation ?: rawCity ?: throw IllegalStateException("One of station fields must be used")

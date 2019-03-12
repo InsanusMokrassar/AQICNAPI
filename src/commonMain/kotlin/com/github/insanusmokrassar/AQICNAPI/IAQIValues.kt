@@ -8,3 +8,14 @@ const val Pm10 = "pm10"
 const val Pm25 = "pm25"
 const val SO2 = "so2"
 const val W = "w"
+
+val knownTypesOfIAQI = setOf(
+    CO,
+    NO2,
+    O3,
+    P,
+    Pm10,
+    Pm25,
+    SO2,
+    W
+)
